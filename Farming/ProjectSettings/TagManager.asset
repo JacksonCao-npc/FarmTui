@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 949461333
+    locked: 0
+  - name: Buliding_Back
+    uniqueID: 1207018179
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Buliding_Front
+    uniqueID: 1624304129
     locked: 0

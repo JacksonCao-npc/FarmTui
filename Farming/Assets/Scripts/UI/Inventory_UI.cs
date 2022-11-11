@@ -9,7 +9,7 @@ public class Inventory_UI : MonoBehaviour
     public List<Slot_UI> slots = new List<Slot_UI>();
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventory();
         }
@@ -17,10 +17,10 @@ public class Inventory_UI : MonoBehaviour
 
     public void ToggleInventory()
     {
-        if(!inventoryPanel.activeSelf)
+        if (!inventoryPanel.activeSelf)
         {
             inventoryPanel.SetActive(true);
-            Setup();
+            Refresh();
         }
         else
         {
@@ -28,13 +28,13 @@ public class Inventory_UI : MonoBehaviour
         }
     }
 
-    void Setup()
+    void Refresh()
     {
-if(slots.Count == player.inventory.slots.Count)
+        if (slots.Count == player.inventory.slots.Count)
         {
-            for(int i=0; i < slots.Count; i++)
+            for (int i = 0; i < slots.Count; i++)
             {
-                if(player.inventory.slots[i].type != CollectableType.NONE)
+                if (player.inventory.slots[i].type != CollectableType.NONE)
                 {
                     slots[i].SetItem(player.inventory.slots[i]);
                 }
@@ -44,5 +44,22 @@ if(slots.Count == player.inventory.slots.Count)
                 }
             }
         }
+    }
+
+    public void Remove(int slotID)
+    {
+        Collectable itemToDrop = GameManager.instance.itemManager.GetItemByType(player.inventory.slots[slotID].type);
+        if (itemToDrop != null)
+        {
+            player.DropItem(itemToDrop);
+            player.inventory.Remove(slotID);
+            Refresh();
+            
+        }
+        player.inventory.Remove(slotID);
+        Refresh();
+       
+
+        
     }
 }

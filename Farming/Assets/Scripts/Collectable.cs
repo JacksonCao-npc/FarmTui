@@ -6,6 +6,12 @@ public class Collectable : MonoBehaviour
 {
     public CollectableType type;
     public Sprite icon;
+    public Rigidbody2D rb2d;
+
+    private void Awake()
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,5 +31,5 @@ public class Collectable : MonoBehaviour
 
 public enum CollectableType
 {
-    NONE,TOMATO_SEED,POTATO_SEED
+    NONE,TOMATO_SEED,POTATO_SEED,TOMATO
 }
