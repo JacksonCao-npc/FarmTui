@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public ItemManager itemManager;
-
+  
     private void Awake()
     {
         if(instance != null && instance !=this)

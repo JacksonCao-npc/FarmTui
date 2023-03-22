@@ -3,91 +3,94 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
-public class Inventory 
-{
+
+
     [System.Serializable]
-    public class Slot
+    public class Inventory
     {
-        public int count;
-        public int maxAllowed;
-        public CollectableType type;
-
-        public Sprite icon;
-
-        public Slot()
+        [System.Serializable]
+        public class Slot
         {
-            type = CollectableType.NONE;
-            count = 0;
-            maxAllowed = 99;
+            public int count;
+            public int maxAllowed;
+            public CollectableType type;
 
-        }
+            public Sprite icon;
 
-        public bool CanAddItem()
-        {
-            if(count<maxAllowed)
+            public Slot()
             {
-                return true;
+                type = CollectableType.NONE;
+                count = 0;
+                maxAllowed = 99;
+
             }
-            return false;
-        }
-        public void AddItem(Collectable item)
-        {
-            this.type =item. type;
-            this.icon = item.icon;
-            count++;
 
-        }
-
-        public void RemoveItem()
-        {
-            if(count >0 )
+            public bool CanAddItem()
             {
-                count--;
-
-                if(count == 0)
+                if (count < maxAllowed)
                 {
-                    icon = null;
-                    type = CollectableType.NONE;
+                    return true;
+                }
+                return false;
+            }
+            public void AddItem(Collectable item)
+            {
+                this.type = item.type;
+                this.icon = item.icon;
+                count++;
+
+            }
+
+            public void RemoveItem()
+            {
+                if (count > 0)
+                {
+                    count--;
+
+                    if (count == 0)
+                    {
+                        icon = null;
+                        type = CollectableType.NONE;
+                    }
                 }
             }
         }
-    }
 
-    public List<Slot> slots = new List<Slot>();
+        public List<Slot> slots = new List<Slot>();
 
-    public Inventory(int numSlots)
-    {
-        for(int i = 0; i<numSlots; i++)
+        public Inventory(int numSlots)
         {
-            Slot slot = new Slot();
-            slots.Add(slot);
-        }
-    }
-
-    public void Add(Collectable item)
-    {
-        foreach(Slot slot in slots)
-        {
-            if (slot.type == item.type && slot.CanAddItem())
+            for (int i = 0; i < numSlots; i++)
             {
-                slot.AddItem(item);
-                return;
+                Slot slot = new Slot();
+                slots.Add(slot);
             }
         }
 
-        foreach (Slot slot in slots)
+        public void Add(Collectable item)
         {
-            if(slot.type == CollectableType.NONE)
+            foreach (Slot slot in slots)
             {
-                slot.AddItem(item);
-                return;
+                if (slot.type == item.type && slot.CanAddItem())
+                {
+                    slot.AddItem(item);
+                    return;
+                }
+            }
+
+            foreach (Slot slot in slots)
+            {
+                if (slot.type == CollectableType.NONE)
+                {
+                    slot.AddItem(item);
+                    return;
+                }
             }
         }
-    }
 
-    public void Remove(int index)
-    {
-        slots[index].RemoveItem();
+        public void Remove(int index)
+        {
+            slots[index].RemoveItem();
+        }
     }
-}
+  

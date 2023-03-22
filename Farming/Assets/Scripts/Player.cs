@@ -26,4 +26,5 @@ public class Player : MonoBehaviour
 
         Debug.Log(droppedItem.type);
     }
+  
 }
